@@ -1,33 +1,30 @@
-import express from 'express';
-import pool from './db/db.js';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import express from "express";
+import dotenv from "dotenv";
+import pool from "./bd/bd.js";
+dotenv.config();
 
 const app = express();
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 
 app.use(express.json());
-
-const PORT = process.env.PORT || 3001;
-
-
-
-
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend', 'usuario.html'));
 });
 
-
-app.get('/usuarios', async (req, res) => {
-    try{
-        const [rows] = await pool.query('SELECT * FROM estudiantes');
+app.get("/usuarios", async (req, res) => {
+    try {
+        const [rows] = await pool.query("SELECT * FROM usuarios");
         res.json(rows);
-    }catch (error) {
-        res.status(500).json({message: 'Error al obtener datos', error});
+    } catch (error) {
+        console.log("Error SQL:", error.message);
+        res.status(500).json({ error: error.message });
     }
 });
 
-app.listen(PORT, () => {
-    console.log('Servidor escuchando en http://localhost:${PORT}');
-}); 
+
+
+const port = process.env.PORT;
+app.listen(port, () => console.log(`Servidor funcionando en http://localhost:${port}`));
+
+
