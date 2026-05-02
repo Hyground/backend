@@ -9,10 +9,10 @@
     <table class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <!-- MODIFICACION: Se cambiaron los encabezados para que coincidan con los datos (id, nombre, telefono) -->
+      <th scope="col">ID</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Telefono</th>
     </tr>
   </thead>
   <tbody id="tabla">
@@ -20,7 +20,8 @@
 </table>
 
  <script>
-        fetch('http://localhost:3000/usuarios')
+        // MODIFICACION: Se cambió la URL de fetch a una ruta relativa '/usuarios' para que funcione sin importar el puerto
+        fetch('/usuarios')
             .then(res => res.json())
             .then(data => {
                 const tabla = document.getElementById('tabla');
